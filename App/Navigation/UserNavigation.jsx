@@ -1,11 +1,11 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from "react";
 import Proflie from "../Screens/ProfileUserScreen/Profile/Profile";
 import UpdateInformation from "../Screens/ProfileUserScreen/UpdateInformation/UpdateInformation";
 import ProfileInformation from "../Screens/ProfileUserScreen/ProfileInformation/ProfileInformation";
 import Points from "../Screens/ProfileUserScreen/Points/Points";
 import HistoryQRScan from "../Screens/ProfileUserScreen/HistoryQRScan/HistoryQRScan";
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const UserNavigation = () => {
   return (

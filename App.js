@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useFonts } from "expo-font";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import TabScren from "./App/Navigation/TabScren";
@@ -16,7 +16,7 @@ const theme = {
   },
 };
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
 export default function App() {
   const [fontLoaded] = useFonts({

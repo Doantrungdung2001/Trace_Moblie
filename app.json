@@ -18,7 +18,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.agrocognitive.agrocognitive",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -38,6 +44,11 @@
           "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "9c5dea89-887f-42cc-9362-4f4598a777a4"
+      }
+    }
   }
 }
