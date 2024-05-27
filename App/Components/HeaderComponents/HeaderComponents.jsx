@@ -28,11 +28,11 @@ const HeaderComponents = () => {
       </View>
 
       <View style={styles.titleSearch}>
-        <Text style={styles.headingText}>Bạn muốn trồng rau gì?</Text>
+        <Text style={styles.headingText}>Nông trại bạn muốn tìm gì?</Text>
       </View>
       <TouchableOpacity
         style={styles.searchSectionWrapper}
-        onPress={() => navigation.push("search-plants")}
+        onPress={() => navigation.push("service/list-farm-detail")}
       >
         <View style={styles.searchBar}>
           <AntDesign
@@ -42,8 +42,8 @@ const HeaderComponents = () => {
             style={{ marginRight: 5 }}
           />
           <TextInput
-            placeholder="Nhập cây muốn trồng"
-            onFocus={() => navigation.push("search-plants")}
+            placeholder="Nhập tên nông trại, địa chỉ"
+            onFocus={() => navigation.push("service/list-farm-detail")}
           />
         </View>
       </TouchableOpacity>

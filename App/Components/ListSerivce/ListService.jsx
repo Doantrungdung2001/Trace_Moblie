@@ -10,7 +10,7 @@ const featureData = [
     color: COLORS.yellow,
     backgroundColor: COLORS.lightyellow,
     description: "Nông trại",
-    param: "Transfer",
+    param: "list-farm-detail",
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const featureData = [
     icon: icons.wallet,
     color: COLORS.red,
     backgroundColor: COLORS.lightRed,
-    description: "Đang chờ",
+    description: "Ưu đãi",
     param: "Wallet",
   },
   {
@@ -33,8 +33,8 @@ const featureData = [
     icon: icons.bill,
     color: COLORS.yellow,
     backgroundColor: COLORS.lightyellow,
-    description: "Vườn của tôi",
-    param: "Bill",
+    description: "Lịch sử",
+    param: "History",
   },
 ];
 const ListService = () => {
@@ -50,7 +50,7 @@ const ListService = () => {
       }}
       key={index}
       onPress={() =>
-        navigation.push(`service-screen/${item.param}`, {
+        navigation.push(`service/${item.param}`, {
           category: item.description,
         })
       }

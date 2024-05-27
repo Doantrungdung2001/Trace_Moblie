@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import FARM from "../../Services/FarmService";
+import { images } from "../../Constants";
 export default function useListFarm() {
   const parseDataAllFarm = useCallback((data) => {
     const allfarm = data.map((farm) => ({
@@ -14,7 +15,8 @@ export default function useListFarm() {
       createdAt: farm.createdAt || "Chưa cập nhật",
       lat: farm?.lat || "",
       lng: farm?.lng || "",
-      avatar: farm?.avatar || "",
+      avatar:
+        "https://i.pinimg.com/originals/6c/f9/9a/6cf99a8fa50413dda20ae63021e16c36.jpg",
     }));
     return { allfarm };
   }, []);

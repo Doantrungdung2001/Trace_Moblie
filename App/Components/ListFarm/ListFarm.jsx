@@ -23,7 +23,7 @@ export default Album = () => {
         <TouchableOpacity
           style={{ alignSelf: "flex-end", marginRight: 10 }}
           onPress={() => {
-            navigation.push("service-screen/Transfer");
+            navigation.push("service/list-farm-detail");
           }}
         >
           <Text style={{ color: "green" }}>Tất cả</Text>
@@ -49,7 +49,7 @@ export default Album = () => {
                 <TouchableOpacity
                   style={styles.card}
                   onPress={() =>
-                    navigation.push("farm-detail", { farmInfo: item })
+                    navigation.push("detail-farm", { farmInfo: item })
                   }
                 >
                   <View style={styles.imageContainer}>

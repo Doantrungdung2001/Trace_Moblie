@@ -8,11 +8,11 @@ const GetStart = () => {
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>
-          {" Chào mừng bạn đến với dịch vụ \n Trồng rau hộ !"}
+          {" Chào mừng bạn đến với ứng dụng \n Truy xuất nguồn gốc !"}
         </Text>
         <Image source={images.getstart} style={styles.image} />
         <Text style={styles.desc}>
-          {"Chào mừng bạn đến với dịch vụ \n Trồng rau hộ"}
+          {"Chào mừng bạn đến với ứng dụng \n Truy xuất nguồn gốc"}
         </Text>
       </View>
       <View style={styles.buttonsContainer}>

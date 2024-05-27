@@ -9,7 +9,7 @@ const CardFarm = ({ farm }) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.push("farm-detail", { farmInfo: farm })}
+      onPress={() => navigation.push("detail-farm", { farmInfo: farm })}
     >
       <Image source={{ uri: farm?.avatar }} style={styles.image} />
       <View style={styles.subContainer}>
