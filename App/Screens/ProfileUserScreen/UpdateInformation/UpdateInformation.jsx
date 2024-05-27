@@ -13,7 +13,10 @@ import InputField from "../../../Components/InputField/InputField";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
+import { Fontisto } from "@expo/vector-icons";
+import { Foundation } from "@expo/vector-icons";
 const UpdateInformation = () => {
   const [dobLabel, setDobLabel] = useState("Date of Birth");
 
@@ -33,7 +36,7 @@ const UpdateInformation = () => {
         style={{ paddingHorizontal: 25 }}
       >
         <InputField
-          label={"Full Name"}
+          label={"Họ và tên"}
           icon={
             <Ionicons
               name="person-outline"
@@ -47,40 +50,38 @@ const UpdateInformation = () => {
         <InputField
           label={"Email ID"}
           icon={
-            <MaterialIcons
-              name="alternate-email"
+            <Fontisto
+              name="email"
               size={20}
               color="#666"
-              style={{ marginRight: 5 }}
+              style={{ marginRight: 8 }}
             />
           }
           keyboardType="email-address"
         />
 
         <InputField
-          label={"Password"}
+          label={"Số điện thoại"}
           icon={
-            <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
+            <Foundation
+              name="telephone"
+              size={22}
               color="#666"
               style={{ marginRight: 5 }}
             />
           }
-          inputType="password"
         />
 
         <InputField
-          label={"Confirm Password"}
+          label={"Địa chỉ nhà"}
           icon={
-            <Ionicons
-              name="ios-lock-closed-outline"
+            <FontAwesome5
+              name="house-user"
               size={20}
               color="#666"
               style={{ marginRight: 5 }}
             />
           }
-          inputType="password"
         />
 
         <View
@@ -112,10 +113,13 @@ const UpdateInformation = () => {
           <DateTimePicker
             mode="date"
             display="spinner"
-            value={selectedTime || date} 
+            value={selectedTime || date}
             onChange={handleTimeChange}
           />
         )}
+        <TouchableOpacity>
+          <Text style={styles.forgetPassword}>Bạn quên mật khẩu?</Text>
+        </TouchableOpacity>
         <CustomButton label={"Cập nhật"} onPress={() => {}} />
       </ScrollView>
     </SafeAreaView>
