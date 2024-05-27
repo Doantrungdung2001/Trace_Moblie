@@ -7,18 +7,21 @@ import {
   TouchableOpacity,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
+
 import PageHeading from "../../../Components/PageHeading/PageHeading";
 import styles from "./UpdateInformation.Styles";
 import InputField from "../../../Components/InputField/InputField";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 import { Fontisto } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
+
 const UpdateInformation = () => {
-  const [dobLabel, setDobLabel] = useState("Date of Birth");
+  const navigation = useNavigation();
+  const [dobLabel, setDobLabel] = useState("Ngày tháng sinh");
 
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
@@ -117,7 +120,9 @@ const UpdateInformation = () => {
             onChange={handleTimeChange}
           />
         )}
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.push("profile/change-password")}
+        >
           <Text style={styles.forgetPassword}>Bạn quên mật khẩu?</Text>
         </TouchableOpacity>
         <CustomButton label={"Cập nhật"} onPress={() => {}} />
