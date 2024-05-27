@@ -52,7 +52,7 @@ const HeaderComponents = () => {
           <View style={styles.body}>
             <Image
               source={{
-                uri: "https://bootdey.com/img/Content/avatar/avatar6.png",
+                uri: "https://image.pngaaa.com/764/3043764-middle.png",
               }}
               style={styles.avatar}
             />
@@ -66,8 +66,8 @@ const HeaderComponents = () => {
       {isLoadingClientInformation && (
         <ActivityIndicator size="large" color="#00ff00" />
       )}
-      <View style={styles.titleSearch}>
-        <Text style={styles.headingText}>Nông trại bạn muốn tìm gì?</Text>
+      {/* <View style={styles.titleSearch}>
+        <Text style={styles.headingText}>Nông trại bạn muốn tìm?</Text>
       </View>
       <TouchableWithoutFeedback
         style={styles.searchSectionWrapper}
@@ -86,7 +86,7 @@ const HeaderComponents = () => {
             editable={!isFocused}
           />
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
     </View>
   );
 };

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     padding: 16,
     borderRadius: 10,
-    marginLeft: 4,
+    marginLeft: 10,
   },
   filterBtn: {
     backgroundColor: COLORS.primary,

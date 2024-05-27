@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 100,
-    height: 100,
+    height: 90,
     borderRadius: 15,
   },
   nameFarm: {
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   districtFarm: {
+    marginTop: 10,
     fontFamily: "regular",
     color: COLORS.black,
     fontSize: 17,

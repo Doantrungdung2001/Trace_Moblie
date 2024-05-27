@@ -103,9 +103,9 @@ const ListService = () => {
   return (
     <View>
       <View style={{ margin: 20 }}>
-        <View style={{ marginBottom: SIZES.padding * 2 }}>
+        {/* <View style={{ marginBottom: SIZES.padding * 2 }}>
           <Text style={{ ...FONTS.h3 }}>Dịch vụ</Text>
-        </View>
+        </View> */}
         <FlatList
           data={feature}
           numColumns={4}

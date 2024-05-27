@@ -44,14 +44,12 @@ const ListFarmDetail = () => {
 
   return (
     <ScrollView>
-      <View style={{marginTop: 20}}>
-        <Heading text={"Danh sách nông trại"} />
-      </View>
+      <PageHeading title={"Danh sách nông trại"} />
 
       <View style={styles.searchSectionWrapper}>
         <View style={styles.searchBar}>
           <TextInput
-            placeholder="Nhập tên nông trại, địa chỉ, ..."
+            placeholder="Nhập tên nông trại, tỉnh"
             value={searchText}
             onChangeText={setSearchText}
           />

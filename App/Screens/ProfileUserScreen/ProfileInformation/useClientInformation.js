@@ -6,12 +6,12 @@ export default function useClientInformation({ clientId }) {
   const parseDataClient = useCallback((client) => {
     const dataClient = {
       id: client._id,
-      name: client.name || "Chưa cập nhật",
-      phone: client.phone || "Chưa cập nhật",
-      address: client.address || "Chưa cập nhật",
-      district: client.district || "Chưa cập nhật",
-      status: client.status || "Chưa cập nhật",
-      email: client?.email || "Chưa cập nhật",
+      name: client.name || "Chưa cập nhật tên",
+      phone: client.phone || "Chưa cập nhật sdt",
+      address: client.address || "Chưa cập nhật địa chỉ",
+      district: client.district || "Chưa cập nhật tỉnh",
+      status: client.status || "Chưa cập nhật trạng thái",
+      email: client?.email || "Chưa cập nhật email",
       history: client.history || "Chưa cập nhật",
       isDeleted: client.isDeleted || "",
     };

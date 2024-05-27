@@ -24,7 +24,7 @@ const CardFarm = ({ farm }) => {
           />
           {farm.district}
         </Text>
-        <Text style={styles.distanceFarm}>{farm.distance} km</Text>
+       
       </View>
     </TouchableOpacity>
   );
