@@ -16,9 +16,8 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   avatar: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
+    width: 200,
+    height: 200,
     marginBottom: 10,
   },
   name: {
@@ -26,6 +25,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 10,
     color: COLORS.primary,
+  },
+  fake: {
+    fontSize: 25,
+    fontWeight: "bold",
+    marginTop: 10,
+    color: "red",
   },
   infoContainer: {
     marginTop: 20,

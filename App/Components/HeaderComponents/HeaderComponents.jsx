@@ -5,8 +5,10 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import UserInfoAsyncStorage from "../../Utils/UserInfoAsyncStorage";
 import useClientInformation from "../../Screens/ProfileUserScreen/ProfileInformation/useClientInformation";
 import styles from "./Header.Styles";
@@ -16,6 +18,8 @@ import { formatDate } from "../../Utils/helper";
 const HeaderComponents = () => {
   const [userId, setUserId] = useState(null);
   const navigation = useNavigation();
+  const [isFocused, setIsFocused] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,6 +35,10 @@ const HeaderComponents = () => {
     useClientInformation({
       clientId: userId,
     });
+  const handleFocus = () => {
+    setIsFocused(true);
+    navigation.push("service/list-farm-detail");
+  };
 
   return (
     <View style={styles.container}>
@@ -61,9 +69,9 @@ const HeaderComponents = () => {
       <View style={styles.titleSearch}>
         <Text style={styles.headingText}>Nông trại bạn muốn tìm gì?</Text>
       </View>
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         style={styles.searchSectionWrapper}
-        onPress={() => navigation.push("service/list-farm-detail")}
+        onPress={() => setIsFocused(false)}
       >
         <View style={styles.searchBar}>
           <AntDesign
@@ -74,10 +82,11 @@ const HeaderComponents = () => {
           />
           <TextInput
             placeholder="Nhập tên nông trại, địa chỉ"
-            onFocus={() => navigation.push("service/list-farm-detail")}
+            onFocus={handleFocus}
+            editable={!isFocused}
           />
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     </View>
   );
 };

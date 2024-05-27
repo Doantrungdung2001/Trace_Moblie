@@ -62,12 +62,14 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     color: COLORS.black,
     marginTop: 10,
+    marginBottom: 20,
   },
   searchSectionWrapper: {
     flexDirection: "row",
     marginVertical: 20,
     marginLeft: 3,
     marginRight: 7,
+    marginTop: 10,
   },
   searchBar: {
     flex: 1,

@@ -39,21 +39,30 @@ const ResultScan = () => {
     <ScrollView style={styles.scrollContainer}>
       <PageHeading title={"Kết quả quét mã"} />
       <View style={styles.container}>
-        <View style={styles.avatarContainer}>
-          <Image
-            source={{
-              uri: "https://static-00.iconduck.com/assets.00/success-icon-2048x2048-8woikx05.png",
-            }}
-            style={styles.avatar}
-          />
-          {resultScan?.isLegit ? (
+        {resultScan?.isLegit ? (
+          <View style={styles.avatarContainer}>
+            <Image
+              source={{
+                uri: "https://static-00.iconduck.com/assets.00/success-icon-2048x2048-8woikx05.png",
+              }}
+              style={styles.avatar}
+            />
             <Text style={styles.name}> Sản phẩm chính hãng</Text>
-          ) : (
-            <Text style={styles.name}>Sản phẩm có thể bị giả mạo</Text>
-          )}
-        </View>
+          </View>
+        ) : (
+          <View style={styles.avatarContainer}>
+            <Image
+              source={{
+                uri: "https://static.vecteezy.com/system/resources/previews/012/042/301/original/warning-sign-icon-transparent-background-free-png.png",
+              }}
+              style={styles.avatar}
+            />
+            <Text style={styles.fake}>Sản phẩm có thể bị giả mạo</Text>
+          </View>
+        )}
+
         <View style={styles.infoContainer}>
-          <Text style={styles.infoLabel}>Mã tx:</Text>
+          <Text style={styles.infoLabel}>Mã transaction Hash:</Text>
           {renderTruncatedTX()}
         </View>
         <View style={styles.infoContainer}>

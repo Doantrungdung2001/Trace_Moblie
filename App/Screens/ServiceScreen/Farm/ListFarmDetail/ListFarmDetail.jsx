@@ -14,7 +14,7 @@ import useListFarm from "../../../../Components/ListFarm/useListFarm";
 import PageHeading from "../../../../Components/PageHeading/PageHeading";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import styles from "./ListFarmDetail.Styles";
-import { COLORS } from "../../../../Constants";
+import Heading from "../../../../Components/Heading/Heading";
 
 const ListFarmDetail = () => {
   const { allFarm, isSuccessAllFarm, isLoadingAllFarm } = useListFarm();
@@ -44,7 +44,10 @@ const ListFarmDetail = () => {
 
   return (
     <ScrollView>
-      <PageHeading title={"Danh sách nông trại"} />
+      <View style={{marginTop: 20}}>
+        <Heading text={"Danh sách nông trại"} />
+      </View>
+
       <View style={styles.searchSectionWrapper}>
         <View style={styles.searchBar}>
           <TextInput
