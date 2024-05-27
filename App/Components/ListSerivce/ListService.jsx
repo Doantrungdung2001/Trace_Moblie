@@ -1,4 +1,11 @@
-import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  Linking,
+} from "react-native";
 import React, { useState } from "react";
 import styles from "./Service.Styles";
 import { COLORS, icons, SIZES, FONTS } from "../../Constants";
@@ -26,7 +33,7 @@ const featureData = [
     color: COLORS.red,
     backgroundColor: COLORS.lightRed,
     description: "Ưu đãi",
-    param: "Wallet",
+    param: "points",
   },
   {
     id: 4,
@@ -34,12 +41,22 @@ const featureData = [
     color: COLORS.yellow,
     backgroundColor: COLORS.lightyellow,
     description: "Lịch sử",
-    param: "History",
+    param: "history-qr-scan",
   },
 ];
 const ListService = () => {
   const [feature, setFeatures] = useState(featureData);
   const navigation = useNavigation();
+
+  const handlePress = (item) => {
+    if (item.param === "Internet") {
+      Linking.openURL("https://traceabilityuser.onrender.com/");
+    } else {
+      navigation.push(`service/${item.param}`, {
+        category: item.description,
+      });
+    }
+  };
 
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
@@ -49,11 +66,7 @@ const ListService = () => {
         alignItems: "center",
       }}
       key={index}
-      onPress={() =>
-        navigation.push(`service/${item.param}`, {
-          category: item.description,
-        })
-      }
+      onPress={() => handlePress(item)}
     >
       <View
         style={{
