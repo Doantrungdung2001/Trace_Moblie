@@ -1,13 +1,22 @@
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useEffect, useState, useRef } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import QR from "../../../Services/QRScanService";
+import styles from "./Scan.Styles";
 const Scan = () => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [scannedData, setScannedData] = useState("");
+  const [loading, setLoading] = useState(false); // Thêm state để quản lý spinner
+
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -52,6 +61,7 @@ const Scan = () => {
 
   const handlerScan = async ({ privateId, projectId }) => {
     try {
+      setLoading(true); // Hiển thị spinner
       if (privateId && projectId) {
         const result = await QR.scanQR({
           privateId: privateId,
@@ -82,6 +92,8 @@ const Scan = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false); // Ẩn spinner
     }
   };
 
@@ -102,25 +114,13 @@ const Scan = () => {
           />
         </View>
       )}
+      {loading && (
+        <View style={styles.spinnerContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )}
     </View>
   );
 };
 
 export default Scan;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  bottomContainer: {
-    position: "absolute",
-    bottom: 20,
-    alignItems: "center",
-  },
-  urlText: {
-    fontSize: 18,
-    margin: 10,
-  },
-});
