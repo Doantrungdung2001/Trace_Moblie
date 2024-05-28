@@ -4,6 +4,8 @@ import styles from "./InputField.Styles";
 const InputField = ({
   label,
   icon,
+  value,
+  onChangeText,
   inputType,
   keyboardType,
   fieldButtonLabel,
@@ -15,6 +17,8 @@ const InputField = ({
       {inputType == "password" ? (
         <TextInput
           placeholder={label}
+          value={value}
+          onChangeText={onChangeText}
           keyboardType={keyboardType}
           style={{ flex: 1, paddingVertical: 0 }}
           secureTextEntry={true}
@@ -22,6 +26,8 @@ const InputField = ({
       ) : (
         <TextInput
           placeholder={label}
+          value={value}
+          onChangeText={onChangeText}
           keyboardType={keyboardType}
           style={{ flex: 1, paddingVertical: 0 }}
         />

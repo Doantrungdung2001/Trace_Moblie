@@ -43,7 +43,7 @@ const ProfileInformation = () => {
           <View style={styles.avatarContainer}>
             <Image
               source={{
-                uri: "https://www.bootdey.com/img/Content/avatar/avatar1.png",
+                uri: "https://image.pngaaa.com/764/3043764-middle.png",
               }}
               style={styles.avatar}
             />
@@ -63,10 +63,6 @@ const ProfileInformation = () => {
             <View style={styles.infoContainer}>
               <Text style={styles.infoLabel}>Địa chỉ:</Text>
               <Text style={styles.infoValue}>{dataClient.address}</Text>
-            </View>
-            <View style={styles.infoContainer}>
-              <Text style={styles.infoLabel}>Ngay sinh</Text>
-              <Text style={styles.infoValue}>19/10/2001</Text>
             </View>
           </View>
           <View style={styles.updateBtn}>

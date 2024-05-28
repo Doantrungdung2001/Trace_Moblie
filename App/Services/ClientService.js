@@ -14,5 +14,17 @@ const CLIENT = {
         return err;
       });
   },
+  updateInfo: async () => {
+    return await privateHttp({
+      method: "PATCH",
+      url: `/client`,
+    })
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        return err;
+      });
+  },
 };
 export default CLIENT;

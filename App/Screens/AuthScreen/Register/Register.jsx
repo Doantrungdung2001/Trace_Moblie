@@ -66,7 +66,7 @@ const Register = () => {
         email: email,
         password: password,
       });
-      if (res.data.status === 200) {
+      if (res.data.status === 200 || res.data.status === 201) {
         setTypeToast("success");
         setTextToast("Thành công");
         setDescriptionToast(
