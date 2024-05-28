@@ -19,6 +19,10 @@ const Register = () => {
     useState(false);
 
   const [email, setEmail] = useState("");
+  const [emailValid, setEmailValid] = useState(true);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   const isValidEmail = (email) => {
     // Biểu thức chính quy để kiểm tra định dạng email
@@ -26,13 +30,21 @@ const Register = () => {
     return emailRegex.test(email);
   };
 
-  const handleCheckEmail = () => {
-    if (isValidEmail(email)) {
-      Alert.alert("Email hợp lệ");
-    } else {
-      Alert.alert("Email không hợp lệ");
-    }
+  const handleEmailChange = (text) => {
+    setEmail(text);
+    setEmailValid(isValidEmail(text));
   };
+
+  const handlePasswordChange = (text) => {
+    setPassword(text);
+    setPasswordsMatch(text === confirmPassword);
+  };
+
+  const handleConfirmPasswordChange = (text) => {
+    setConfirmPassword(text);
+    setPasswordsMatch(text === password);
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -46,8 +58,11 @@ const Register = () => {
               placeholderTextColor={COLORS.darkgray}
               style={styles.textInputEmail}
               value={email}
-              onChangeText={setEmail}
+              onChangeText={handleEmailChange}
             />
+            {!emailValid && (
+              <Text style={styles.errorText}>Email không hợp lệ</Text>
+            )}
           </View>
 
           <View style={styles.password}>
@@ -56,6 +71,8 @@ const Register = () => {
               placeholderTextColor={COLORS.darkgray}
               secureTextEntry={!selectDisplayPassword}
               style={styles.textInputPassword}
+              value={password}
+              onChangeText={handlePasswordChange}
             />
             <TouchableOpacity
               style={{ justifyContent: "center" }}
@@ -84,6 +101,8 @@ const Register = () => {
               placeholderTextColor={COLORS.darkgray}
               secureTextEntry={!selectConfirmDisplayPassword}
               style={styles.textInputPassword}
+              value={confirmPassword}
+              onChangeText={handleConfirmPasswordChange}
             />
             <TouchableOpacity
               style={{ justifyContent: "center" }}
@@ -108,10 +127,19 @@ const Register = () => {
               )}
             </TouchableOpacity>
           </View>
+          {!passwordsMatch && (
+            <Text style={styles.errorText}>Mật khẩu không khớp</Text>
+          )}
         </View>
         <TouchableOpacity
           style={styles.btnRegister}
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => {
+            if (emailValid && passwordsMatch) {
+              navigation.navigate("Login");
+            } else {
+              alert("Vui lòng nhập email hợp lệ và mật khẩu khớp");
+            }
+          }}
         >
           <Text style={styles.textBtnRegister}>Đăng ký</Text>
         </TouchableOpacity>
@@ -127,5 +155,3 @@ const Register = () => {
 };
 
 export default Register;
-
-
