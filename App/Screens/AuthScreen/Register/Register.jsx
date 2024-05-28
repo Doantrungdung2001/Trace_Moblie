@@ -1,35 +1,49 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { COLORS } from "../../../Constants";
 import { useNavigation } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
+import AUTH from "../../../Services/AuthService";
 import styles from "./Register.Style";
+import ToastMessage from "../../../Components/ToastMessage/ToastMessage";
 
 const Register = () => {
   const navigation = useNavigation();
   const [selectDisplayPassword, setSelectDisplayPassowrd] = useState(false);
   const [selectConfirmDisplayPassword, setSelectConfirmDisplayPassowrd] =
     useState(false);
-
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
 
+  const toastRef = useRef(null);
+  const [typeToast, setTypeToast] = useState("success");
+  const [textToast, setTextToast] = useState();
+
+  const [descriptionToast, setDescriptionToast] = useState();
+
+  const handleShowToast = () => {
+    if (toastRef.current) {
+      toastRef.current.show();
+    }
+  };
   const isValidEmail = (email) => {
     // Biểu thức chính quy để kiểm tra định dạng email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-
+  const handleNameChange = (text) => {
+    setName(text);
+  };
   const handleEmailChange = (text) => {
     setEmail(text);
     setEmailValid(isValidEmail(text));
@@ -45,13 +59,50 @@ const Register = () => {
     setPasswordsMatch(text === password);
   };
 
+  const Register = async (name, email, password) => {
+    try {
+      const res = await AUTH.register({
+        name: name,
+        email: email,
+        password: password,
+      });
+      if (res.data.status === 200) {
+        navigation.push("Login");
+      }
+
+      console.log("Register success");
+    } catch (error) {
+      if (error?.response?.data.code) {
+        setTypeToast("danger");
+        setTextToast("Không thành công");
+        setDescriptionToast("Tài khoản đã tồn tại");
+        handleShowToast();
+      }
+      console.log("Register fail: --", error);
+    }
+  };
   return (
     <SafeAreaView>
+      <ToastMessage
+        type={typeToast}
+        text={textToast}
+        description={descriptionToast}
+        ref={toastRef}
+      />
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.textHeader}>Đăng ký tài khoản</Text>
         </View>
         <View style={styles.content}>
+          <View>
+            <TextInput
+              placeholder="Tên"
+              placeholderTextColor={COLORS.darkgray}
+              style={styles.textInputEmail}
+              value={name}
+              onChangeText={handleNameChange}
+            />
+          </View>
           <View>
             <TextInput
               placeholder="Email"
@@ -135,7 +186,7 @@ const Register = () => {
           style={styles.btnRegister}
           onPress={() => {
             if (emailValid && passwordsMatch) {
-              navigation.navigate("Login");
+              Register(name, email, password);
             } else {
               alert("Vui lòng nhập email hợp lệ và mật khẩu khớp");
             }
