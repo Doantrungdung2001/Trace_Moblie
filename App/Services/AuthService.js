@@ -33,7 +33,7 @@ const AUTH = {
   },
 
   updatePassword: async ({ oldPassword, newPassword}) => {
-    let result = await publicHttp({
+    let result = await privateHttp({
       method: "PATCH",
       url: "updatePassword",
       data: {

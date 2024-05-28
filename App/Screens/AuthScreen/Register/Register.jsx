@@ -25,6 +25,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
 
+
   const toastRef = useRef(null);
   const [typeToast, setTypeToast] = useState("success");
   const [textToast, setTextToast] = useState();
@@ -51,7 +52,6 @@ const Register = () => {
 
   const handlePasswordChange = (text) => {
     setPassword(text);
-    setPasswordsMatch(text === confirmPassword);
   };
 
   const handleConfirmPasswordChange = (text) => {

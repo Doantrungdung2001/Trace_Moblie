@@ -10,6 +10,8 @@ import AUTH from "../../../Services/AuthService";
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   const toastRef = useRef(null);
   const [typeToast, setTypeToast] = useState("success");
@@ -21,6 +23,15 @@ const ChangePassword = () => {
     if (toastRef.current) {
       toastRef.current.show();
     }
+  };
+
+  const handlePasswordChange = (text) => {
+    setNewPassword(text);
+  };
+
+  const handleConfirmPasswordChange = (text) => {
+    setConfirmPassword(text);
+    setPasswordsMatch(text === newPassword);
   };
 
   const ChangePassword = async (oldPassword, newPassword) => {
@@ -87,7 +98,7 @@ const ChangePassword = () => {
           }
           inputType="password"
           value={newPassword}
-          onChangeText={setNewPassword}
+          onChangeText={handlePasswordChange}
         />
 
         <InputField
@@ -101,8 +112,12 @@ const ChangePassword = () => {
             />
           }
           inputType="password"
+          value={confirmPassword}
+          onChangeText={handleConfirmPasswordChange}
         />
-
+        {!passwordsMatch && (
+          <Text style={styles.errorText}>Mật khẩu không khớp</Text>
+        )}
         <CustomButton
           label={"Cập nhật"}
           onPress={() => {

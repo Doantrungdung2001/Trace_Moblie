@@ -1,4 +1,3 @@
-// rnfe
 import {
   View,
   Text,
@@ -14,6 +13,7 @@ import { COLORS } from "../../../Constants";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./Profile.Style";
+
 data = [
   {
     id: 1,
@@ -47,6 +47,7 @@ const user = {
 const Proflie = () => {
   const navigation = useNavigation();
   const [userId, setUserId] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,6 +64,16 @@ const Proflie = () => {
     useClientInformation({
       clientId: userId,
     });
+
+  const handleLogout = async () => {
+    try {
+      await UserInfoAsyncStorage.clearUserInfo();
+      navigation.replace("Login"); // Navigate to login screen or another appropriate screen
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   return (
     <View>
       <View style={styles.avatarContainer}>
@@ -81,8 +92,15 @@ const Proflie = () => {
       <View style={styles.content}>
         {data.map((item) => (
           <TouchableOpacity
+            key={item.id}
             style={styles.service}
-            onPress={() => navigation.push(`profile/${item.param}`)}
+            onPress={() => {
+              if (item.name === "Đăng xuất") {
+                handleLogout();
+              } else {
+                navigation.push(`profile/${item.param}`);
+              }
+            }}
           >
             <Ionicons name={item.icon} size={44} color={COLORS.primary} />
             <Text
