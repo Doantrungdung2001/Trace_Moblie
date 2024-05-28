@@ -21,12 +21,12 @@ export default Album = () => {
       <View>
         <Heading text={"Danh sách nông trại"} />
         <TouchableOpacity
-          style={{ alignSelf: "flex-end", marginRight: 10 }}
+          style={{ alignSelf: "flex-end", marginRight: 30 }}
           onPress={() => {
             navigation.push("service/list-farm-detail");
           }}
         >
-          <Text style={{ color: "green" }}>Tất cả</Text>
+          <Text style={{ color: "green" }}>Tất cả nông trại</Text>
         </TouchableOpacity>
       </View>
       {isSuccessAllFarm && (

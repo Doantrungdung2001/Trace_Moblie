@@ -31,6 +31,8 @@ const UpdateInformation = () => {
     setShowPicker(false); // Hide the picker after selecting a time
     setSelectedTime(selectedDate);
   };
+
+  
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
       <PageHeading title={" Chỉnh sửa thông tin"} />
@@ -48,19 +50,6 @@ const UpdateInformation = () => {
               style={{ marginRight: 5 }}
             />
           }
-        />
-
-        <InputField
-          label={"Email ID"}
-          icon={
-            <Fontisto
-              name="email"
-              size={20}
-              color="#666"
-              style={{ marginRight: 8 }}
-            />
-          }
-          keyboardType="email-address"
         />
 
         <InputField
@@ -87,7 +76,7 @@ const UpdateInformation = () => {
           }
         />
 
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             borderBottomColor: "#ccc",
@@ -119,11 +108,12 @@ const UpdateInformation = () => {
             value={selectedTime || date}
             onChange={handleTimeChange}
           />
-        )}
+        )} */}
+
         <TouchableOpacity
           onPress={() => navigation.push("profile/change-password")}
         >
-          <Text style={styles.forgetPassword}>Bạn quên mật khẩu?</Text>
+          <Text style={styles.forgetPassword}>Đổi mật khẩu?</Text>
         </TouchableOpacity>
         <CustomButton label={"Cập nhật"} onPress={() => {}} />
       </ScrollView>

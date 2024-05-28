@@ -2,6 +2,7 @@ import { ScrollView } from "react-native";
 import React from "react";
 import ListService from "../../Components/ListSerivce/ListService";
 import HeaderComponents from "../../Components/HeaderComponents/HeaderComponents";
+import ListHistoryQR from "../../Components/ListHistoryQR/ListHistoryQR";
 import ListFarm from "../../Components/ListFarm/ListFarm";
 
 const HomeScreen = () => {
@@ -9,6 +10,7 @@ const HomeScreen = () => {
     <ScrollView>
       <HeaderComponents />
       <ListService />
+      <ListHistoryQR />
       <ListFarm />
     </ScrollView>
   );

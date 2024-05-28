@@ -94,7 +94,7 @@ const Scan = () => {
       {scanned && (
         <View style={styles.bottomContainer}>
           <Button
-            title="Tap to Scan Again"
+            title="Click lại một lần nữa !"
             onPress={() => {
               setScanned(false);
               setScannedData("");
