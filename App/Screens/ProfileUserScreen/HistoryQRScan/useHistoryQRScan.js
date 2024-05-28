@@ -1,9 +1,11 @@
 import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import QR from "../../../Services/QRScanService";
+
 export default function useHistoryQRScan({ clientId }) {
   const parseDataAllHistory = useCallback((data) => {
-    console.log("data: ", data?.history)
+    console.log("data: ", data?.history);
+    
     const historyQRScan = data?.history?.map((qrScan) => ({
       id: qrScan?._id,
       purchaseInfo: qrScan?.purchaseInfo || "",
@@ -12,7 +14,11 @@ export default function useHistoryQRScan({ clientId }) {
       time: qrScan?.time || "",
       tx: qrScan?.qr?.txScan || "",
     }));
-    console.log("---------fasdfads----------,", historyQRScan);
+
+    // Sắp xếp lịch sử quét QR theo thời gian gần nhất
+    historyQRScan.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+    console.log("---------Sorted HistoryQRScan----------,", historyQRScan);
     return { historyQRScan };
   }, []);
 

@@ -6,13 +6,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import styles from "./ListHistoryQR.Styles";
 import Heading from "../Heading/Heading";
 import UserInfoAsyncStorage from "../../Utils/UserInfoAsyncStorage";
 import useHistoryQRScan from "../../Screens/ProfileUserScreen/HistoryQRScan/useHistoryQRScan";
 import * as Linking from "expo-linking";
 import { formatDateTime } from "../../Utils/helper";
+import { COLORS } from "../../Constants";
 const ListHistoryQR = () => {
+  const navigation = useNavigation();
   const [cards, setCards] = useState([
     {
       id: 1,
@@ -95,8 +98,11 @@ const ListHistoryQR = () => {
     <View style={styles.container}>
       <View>
         <Heading text={"QR quét gần đây"} />
-        <TouchableOpacity>
-          <Text>Tất cả</Text>
+        <TouchableOpacity
+          onPress={() => navigation.push("service/history-qr-scan")}
+          style={{ alignSelf: "flex-end", marginRight: 30 }}
+        >
+          <Text style={{color: COLORS.primary}}>Tất cả lịch sử</Text>
         </TouchableOpacity>
       </View>
       {isSuccessHistoryQRScan && (
@@ -105,7 +111,7 @@ const ListHistoryQR = () => {
           contentContainerStyle={styles.carouselContainer}
           showsHorizontalScrollIndicator={false}
         >
-          {dataHistoryQRScan.map((item) => (
+          {dataHistoryQRScan.slice(0, 5).map((item) => (
             <View key={item.id} style={styles.cardContainer}>
               <View>
                 <Text>Mã dự án</Text>
@@ -126,7 +132,9 @@ const ListHistoryQR = () => {
                 </View>
                 <View style={styles.cardInfoItem}>
                   <Text style={styles.cardInfoLabel}>Ngày quét</Text>
-                  <Text style={styles.cardInfoValue}>{formatDateTime(item.time)}</Text>
+                  <Text style={styles.cardInfoValue}>
+                    {formatDateTime(item.time)}
+                  </Text>
                 </View>
               </View>
             </View>

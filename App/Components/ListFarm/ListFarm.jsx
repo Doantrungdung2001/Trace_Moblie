@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import Heading from "../Heading/Heading";
 import styles from "./ListFarm.Styles";
 import useListFarm from "./useListFarm";
+import { COLORS } from "../../Constants";
 
 export default Album = () => {
   const navigation = useNavigation();
@@ -26,7 +27,7 @@ export default Album = () => {
             navigation.push("service/list-farm-detail");
           }}
         >
-          <Text style={{ color: "green" }}>Tất cả nông trại</Text>
+          <Text style={{ color: COLORS.primary }}>Tất cả nông trại</Text>
         </TouchableOpacity>
       </View>
       {isSuccessAllFarm && (
