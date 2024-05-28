@@ -67,7 +67,12 @@ const Register = () => {
         password: password,
       });
       if (res.data.status === 200) {
-        navigation.push("Login");
+        setTypeToast("success");
+        setTextToast("Thành công");
+        setDescriptionToast(
+          "Đăng ký tài khoản thành công, hãy đăng nhập để trải nghiệm dịch vụ"
+        );
+        handleShowToast();
       }
 
       console.log("Register success");

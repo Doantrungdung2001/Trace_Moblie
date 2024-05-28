@@ -102,7 +102,7 @@ const ListHistoryQR = () => {
           onPress={() => navigation.push("service/history-qr-scan")}
           style={{ alignSelf: "flex-end", marginRight: 30 }}
         >
-          <Text style={{color: COLORS.primary}}>Tất cả lịch sử</Text>
+          <Text style={{ color: COLORS.primary }}>Tất cả lịch sử</Text>
         </TouchableOpacity>
       </View>
       {isSuccessHistoryQRScan && (
@@ -111,34 +111,40 @@ const ListHistoryQR = () => {
           contentContainerStyle={styles.carouselContainer}
           showsHorizontalScrollIndicator={false}
         >
-          {dataHistoryQRScan.slice(0, 5).map((item) => (
-            <View key={item.id} style={styles.cardContainer}>
-              <View>
-                <Text>Mã dự án</Text>
-                <Text style={styles.cardNumber}>
-                  {renderTruncatedProjectId(item.projectId)}
-                </Text>
-              </View>
-              <View>
-                <Text>Mã transaction Hash</Text>
-                <Text style={styles.cardNumber}>
-                  {renderTruncatedTX(item.tx)}
-                </Text>
-              </View>
-              <View style={styles.cardInfoContainer}>
-                <View style={styles.cardInfoItem}>
-                  <Text style={styles.cardInfoLabel}> Tên dựa án</Text>
-                  <Text style={styles.cardInfoValue}>{item.plant}</Text>
-                </View>
-                <View style={styles.cardInfoItem}>
-                  <Text style={styles.cardInfoLabel}>Ngày quét</Text>
-                  <Text style={styles.cardInfoValue}>
-                    {formatDateTime(item.time)}
+          {dataHistoryQRScan ? (
+            dataHistoryQRScan.slice(0, 5).map((item) => (
+              <View key={item.id} style={styles.cardContainer}>
+                <View>
+                  <Text>Mã dự án</Text>
+                  <Text style={styles.cardNumber}>
+                    {renderTruncatedProjectId(item.projectId)}
                   </Text>
                 </View>
+                <View>
+                  <Text>Mã transaction Hash</Text>
+                  <Text style={styles.cardNumber}>
+                    {renderTruncatedTX(item.tx)}
+                  </Text>
+                </View>
+                <View style={styles.cardInfoContainer}>
+                  <View style={styles.cardInfoItem}>
+                    <Text style={styles.cardInfoLabel}> Tên dựa án</Text>
+                    <Text style={styles.cardInfoValue}>{item.plant}</Text>
+                  </View>
+                  <View style={styles.cardInfoItem}>
+                    <Text style={styles.cardInfoLabel}>Ngày quét</Text>
+                    <Text style={styles.cardInfoValue}>
+                      {formatDateTime(item.time)}
+                    </Text>
+                  </View>
+                </View>
               </View>
+            ))
+          ) : (
+            <View>
+              <Text>Chưa quét lần nào</Text>
             </View>
-          ))}
+          )}
         </ScrollView>
       )}
       {isLoadingHistoryQRScan && (

@@ -75,29 +75,41 @@ const HistoryQRScan = () => {
       <View style={{ marginBottom: 20 }}></View>
       {isSuccessHistoryQRScan && (
         <View>
-          {dataHistoryQRScan?.map((history, index) => (
-            <View style={styles.card} key={index}>
-              <View style={styles.item}>
-                <View style={styles.itemContent}>
-                  <Text style={styles.itemPrice}>
-                    {formatDateTime(history.time)}
-                  </Text>
-                  <Text style={styles.itemName}>{history.plant}</Text>
-
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={{ marginRight: 4, fontSize: 18 }}>
-                      Mã dự án:
+          {dataHistoryQRScan ? (
+            dataHistoryQRScan?.map((history, index) => (
+              <View style={styles.card} key={index}>
+                <View style={styles.item}>
+                  <View style={styles.itemContent}>
+                    <Text style={styles.itemPrice}>
+                      {formatDateTime(history.time)}
                     </Text>
-                    {renderTruncatedProjectId(history.projectId)}
-                  </View>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={{ marginRight: 4, fontSize: 18 }}>Mã tx:</Text>
-                    {renderTruncatedTX(history.tx)}
+                    <Text style={styles.itemName}>{history.plant}</Text>
+
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <Text style={{ marginRight: 4, fontSize: 18 }}>
+                        Mã dự án:
+                      </Text>
+                      {renderTruncatedProjectId(history.projectId)}
+                    </View>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <Text style={{ marginRight: 4, fontSize: 18 }}>
+                        Mã tx:
+                      </Text>
+                      {renderTruncatedTX(history.tx)}
+                    </View>
                   </View>
                 </View>
               </View>
+            ))
+          ) : (
+            <View>
+              <Text>Chưa quét lần nào</Text>
             </View>
-          ))}
+          )}
         </View>
       )}
       {isLoadingHistoryQRScan && (
