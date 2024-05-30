@@ -85,7 +85,7 @@ const Login = () => {
             </Text>
           )}
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.push("ForgetPassword")}>
           <Text style={styles.forgetPassword}>Bạn quên mật khẩu?</Text>
         </TouchableOpacity>
         <TouchableOpacity
