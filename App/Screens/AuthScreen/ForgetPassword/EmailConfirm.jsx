@@ -17,6 +17,7 @@ const EmailConfirm = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
+  const [confirmEmail, setConfirmEmail] = useState(true);
   const isValidEmail = (email) => {
     // Biểu thức chính quy để kiểm tra định dạng email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,6 +27,23 @@ const EmailConfirm = () => {
   const handleEmailChange = (text) => {
     setEmail(text);
     setEmailValid(isValidEmail(text));
+  };
+
+  const handleConfirmEmail = async (email) => {
+    try {
+      const res = await AUTH.forgetPassword({
+        email: email,
+      });
+      if (res.data.status === 200) {
+        navigation.push("ResetPassword", {
+          email: email,
+        });
+      }
+    } catch (error) {
+      if (error?.response?.data.code) {
+        setConfirmEmail(false);
+      }
+    }
   };
   return (
     <SafeAreaView>
@@ -42,10 +60,13 @@ const EmailConfirm = () => {
           {!emailValid && (
             <Text style={styles.errorText}>Email không hợp lệ</Text>
           )}
+          {!confirmEmail && (
+            <Text style={styles.errorText}>Email không đúng</Text>
+          )}
         </View>
         <TouchableOpacity
           style={styles.btnLogin}
-          onPress={() => navigation.push("ResetPassword")}
+          onPress={() => handleConfirmEmail(email)}
         >
           <Text style={styles.textBtnLogin}>Xác nhận</Text>
         </TouchableOpacity>

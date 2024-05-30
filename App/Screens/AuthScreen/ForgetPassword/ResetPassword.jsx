@@ -5,22 +5,22 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { COLORS } from "../../../Constants";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
 import AUTH from "../../../Services/AuthService";
 import styles from "./ResetPassword.Styles";
 import ToastMessage from "../../../Components/ToastMessage/ToastMessage";
 import PageHeading from "../../../Components/PageHeading/PageHeading";
 const ResetPassword = () => {
+  const param = useRoute().params;
   const navigation = useNavigation();
   const [selectDisplayPassword, setSelectDisplayPassowrd] = useState(false);
   const [selectConfirmDisplayPassword, setSelectConfirmDisplayPassowrd] =
     useState(false);
   const [token, setToken] = useState("");
-  const [email, setEmail] = useState("");
-  const [emailValid, setEmailValid] = useState(true);
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
@@ -31,22 +31,17 @@ const ResetPassword = () => {
 
   const [descriptionToast, setDescriptionToast] = useState();
 
+  useEffect(() => {
+    setEmail(param.email);
+  }, []);
+
   const handleShowToast = () => {
     if (toastRef.current) {
       toastRef.current.show();
     }
   };
-  const isValidEmail = (email) => {
-    // Biểu thức chính quy để kiểm tra định dạng email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
   const handleTokenChange = (text) => {
     setToken(text);
-  };
-  const handleEmailChange = (text) => {
-    setEmail(text);
-    setEmailValid(isValidEmail(text));
   };
 
   const handlePasswordChange = (text) => {
@@ -58,31 +53,31 @@ const ResetPassword = () => {
     setPasswordsMatch(text === password);
   };
 
-  const Register = async (name, email, password) => {
+  const ResetPassword = async (token, email, newPassword) => {
     try {
-      const res = await AUTH.register({
-        name: name,
+      console.log("--afsadfsad", token, email, newPassword);
+      const res = await AUTH.resetPassword({
+        resetToken: token,
         email: email,
-        password: password,
+        newPassword: newPassword,
       });
       if (res.data.status === 200 || res.data.status === 201) {
         setTypeToast("success");
         setTextToast("Thành công");
         setDescriptionToast(
-          "Đăng ký tài khoản thành công, hãy đăng nhập để trải nghiệm dịch vụ"
+          "Lấy lại mật khẩu thành công, hãy đăng nhập để trải nghiệm dịch vụ"
         );
         handleShowToast();
       }
-
-      console.log("Register success");
+      console.log("success", res);
     } catch (error) {
       if (error?.response?.data.code) {
         setTypeToast("danger");
         setTextToast("Không thành công");
-        setDescriptionToast("Tài khoản đã tồn tại");
+        setDescriptionToast("Lấy lại mật khẩu không thành công");
         handleShowToast();
       }
-      console.log("Register fail: --", error);
+      console.log("loi", error);
     }
   };
   return (
@@ -110,18 +105,6 @@ const ResetPassword = () => {
               value={token}
               onChangeText={handleTokenChange}
             />
-          </View>
-          <View>
-            <TextInput
-              placeholder="Email"
-              placeholderTextColor={COLORS.darkgray}
-              style={styles.textInputEmail}
-              value={email}
-              onChangeText={handleEmailChange}
-            />
-            {!emailValid && (
-              <Text style={styles.errorText}>Email không hợp lệ</Text>
-            )}
           </View>
 
           <View style={styles.password}>
@@ -193,8 +176,8 @@ const ResetPassword = () => {
         <TouchableOpacity
           style={styles.btnRegister}
           onPress={() => {
-            if (emailValid && passwordsMatch) {
-              Register(name, email, password);
+            if (passwordsMatch) {
+              ResetPassword(token, email, password);
             } else {
               alert("Vui lòng nhập email hợp lệ và mật khẩu khớp");
             }
