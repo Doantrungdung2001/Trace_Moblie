@@ -20,5 +20,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     margin: 10,
   },
+  processingText: {
+    fontSize: 30,
+    textAlign: "center",
+    fontFamily: "Roboto-BoldItalic",
+    color: "blue",
+  },
 });
 export default styles;

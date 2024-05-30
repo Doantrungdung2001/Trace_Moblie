@@ -34,10 +34,7 @@ const Scan = () => {
     // Lấy idProject và idPrivate từ phần tử thứ 5 và thứ 6 của mảng
     const idProject = parts[parts.length - 2];
     const idPrivate = parts[parts.length - 1];
-
-    console.log("idProject----------------------:", idProject);
-    console.log("idPrivate----------------------:", idPrivate);
-
+    console.log("fsadfds---", idPrivate, idPrivate);
     // Gọi hàm handlerScan với projectId và privateId
     handlerScan({ projectId: idProject, privateId: idPrivate });
   };
@@ -62,12 +59,18 @@ const Scan = () => {
   const handlerScan = async ({ privateId, projectId }) => {
     try {
       setLoading(true); // Hiển thị spinner
+      if (!privateId || !projectId) {
+        navigation.push("error-scan");
+        setLoading(false); // Ẩn spinner
+        return;
+      }
       if (privateId && projectId) {
         const result = await QR.scanQR({
           privateId: privateId,
           projectId: projectId,
         });
-        console.log("----------------afsadfdsfsdf", result);
+
+        console.log("result 2: ", result);
         let dataResult = null;
         if (
           result.data.message === "Scan QR success!" &&
@@ -92,6 +95,7 @@ const Scan = () => {
       }
     } catch (error) {
       console.log(error);
+      navigation.push("error-scan");
     } finally {
       setLoading(false); // Ẩn spinner
     }
@@ -117,6 +121,7 @@ const Scan = () => {
       {loading && (
         <View style={styles.spinnerContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
+          <Text style={styles.processingText}>Đang sử lý..... </Text>
         </View>
       )}
     </View>

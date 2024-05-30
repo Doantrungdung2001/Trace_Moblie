@@ -12,6 +12,7 @@ import { COLORS } from "../Constants";
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 
 const TabBarCustomButton = ({
@@ -117,7 +118,11 @@ const TabScren = () => {
             </Text>
           ),
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="scan-sharp" size={size} color={color} />
+            <MaterialCommunityIcons
+              name="qrcode-scan"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />

@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   infoLabel: {
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 23,
   },
   infoValue: {
     marginTop: 5,
@@ -45,6 +45,42 @@ const styles = StyleSheet.create({
   },
   txHash: {
     marginTop: 5,
+    fontSize: 18,
+    color: "blue",
+  },
+  purchaseInfo: {
+    marginLeft: 10,
+  },
+  purchaseInfoItem: {
+    marginBottom: 5,
+  },
+  divider: {
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 2,
+    marginVertical: 20,
+  },
+  customerInfoContainer: {
+    marginTop: 5,
+  },
+  customerInfo: {
+    flexDirection: "row",
+    marginVertical: 5,
+  },
+  subtitle: {
+    fontSize: 23,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  label: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  text: {
+    marginLeft: 5,
+    fontSize: 18,
+  },
+  textIdProject: {
+    marginLeft: 5,
     fontSize: 18,
     color: "blue",
   },
