@@ -102,7 +102,9 @@ const ListHistoryQR = () => {
           onPress={() => navigation.push("service/history-qr-scan")}
           style={{ alignSelf: "flex-end", marginRight: 30 }}
         >
-          <Text style={{ color: COLORS.primary }}>Tất cả lịch sử</Text>
+          <Text style={{ color: COLORS.primary, fontSize: 15 }}>
+            Tất cả lịch sử
+          </Text>
         </TouchableOpacity>
       </View>
       {isSuccessHistoryQRScan && (

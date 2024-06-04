@@ -27,7 +27,9 @@ export default Album = () => {
             navigation.push("service/list-farm-detail");
           }}
         >
-          <Text style={{ color: COLORS.primary }}>Tất cả nông trại</Text>
+          <Text style={{ color: COLORS.primary, fontSize: 15 }}>
+            Tất cả nông trại
+          </Text>
         </TouchableOpacity>
       </View>
       {isSuccessAllFarm && (
