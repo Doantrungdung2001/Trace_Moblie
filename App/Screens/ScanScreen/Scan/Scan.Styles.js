@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../../../Constants";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
     fontFamily: "Roboto-BoldItalic",
-    color: "blue",
+    color: "white",
   },
 });
 export default styles;

@@ -22,18 +22,12 @@ const data = [
   },
   {
     id: 2,
-    name: "Ưu đãi",
-    param: "points",
-    icon: "card-sharp",
-  },
-  {
-    id: 3,
     name: "Lịch sử",
     param: "history-qr-scan",
     icon: "film",
   },
   {
-    id: 4,
+    id: 3,
     name: "Đăng xuất",
     icon: "log-out",
   },

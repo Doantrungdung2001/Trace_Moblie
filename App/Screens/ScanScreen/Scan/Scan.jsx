@@ -120,8 +120,8 @@ const Scan = () => {
       )}
       {loading && (
         <View style={styles.spinnerContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Text style={styles.processingText}>Đang sử lý..... </Text>
+          <ActivityIndicator size="large" color="white" />
+          <Text style={styles.processingText}>Đang xử lý..... </Text>
         </View>
       )}
     </View>

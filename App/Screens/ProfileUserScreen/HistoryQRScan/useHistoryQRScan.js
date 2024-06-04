@@ -1,15 +1,16 @@
 import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import QR from "../../../Services/QRScanService";
-
 export default function useHistoryQRScan({ clientId }) {
   const parseDataAllHistory = useCallback((data) => {
-    console.log("data: ", data?.history);
-    
+    data?.history?.map((qrScan) => {
+      console.log("project: ", qrScan?.qr?.project);
+    });
+
     const historyQRScan = data?.history?.map((qrScan) => ({
       id: qrScan?._id,
       purchaseInfo: qrScan?.purchaseInfo || "",
-      plant: qrScan?.qr?.project?.plant?.name || "fake plant",
+      plant: qrScan?.qr?.project?.plant?.plant_name || "fake plant",
       projectId: qrScan?.qr?.project?._id || "6635f707f2303b52117102cf",
       time: qrScan?.time || "",
       tx: qrScan?.qr?.txScan || "",
@@ -17,8 +18,6 @@ export default function useHistoryQRScan({ clientId }) {
 
     // Sắp xếp lịch sử quét QR theo thời gian gần nhất
     historyQRScan.sort((a, b) => new Date(b.time) - new Date(a.time));
-
-    console.log("---------Sorted HistoryQRScan----------,", historyQRScan);
     return { historyQRScan };
   }, []);
 
@@ -26,7 +25,7 @@ export default function useHistoryQRScan({ clientId }) {
     data: dataHistoryQRScan,
     isSuccess: isSuccessHistoryQRScan,
     isLoading: isLoadingHistoryQRScan,
-    refetch
+    refetch,
   } = useQuery({
     queryKey: ["getHistoryQRScan"],
     queryFn: () => QR.historyScanQR(clientId),
@@ -39,6 +38,6 @@ export default function useHistoryQRScan({ clientId }) {
     dataHistoryQRScan: dataHistoryQRScan?.historyQRScan,
     isSuccessHistoryQRScan,
     isLoadingHistoryQRScan,
-    refetch
+    refetch,
   };
 }
