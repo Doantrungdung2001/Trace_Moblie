@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import styles from "./ProfileInformation.Styles";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
 import UserInfoAsyncStorage from "../../../Utils/UserInfoAsyncStorage";
@@ -27,10 +27,14 @@ const ProfileInformation = () => {
     };
     fetchData();
   }, []);
-  const { dataClient, isSuccessClientInformation, isLoadingClientInformation } =
-    useClientInformation({
-      clientId: userId,
-    });
+  const {
+    dataClient,
+    isSuccessClientInformation,
+    isLoadingClientInformation,
+    refetcClientInfomation,
+  } = useClientInformation({
+    clientId: userId,
+  });
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -59,7 +63,7 @@ const ProfileInformation = () => {
             </View>
             <View style={styles.infoContainer}>
               <Text style={styles.infoLabel}>Số điện thoại:</Text>
-              <Text style={styles.infoValue}>{dataClient.email}</Text>
+              <Text style={styles.infoValue}>{dataClient.phone}</Text>
             </View>
             <View style={styles.infoContainer}>
               <Text style={styles.infoLabel}>Địa chỉ:</Text>
@@ -69,7 +73,12 @@ const ProfileInformation = () => {
           <View style={styles.updateBtn}>
             <CustomButton
               label={"Chỉnh sửa thông tin"}
-              onPress={() => navigation.push("profile/update-info")}
+              onPress={() =>
+                navigation.push("profile/update-info", {
+                  dataClient: dataClient,
+                  refetcClientInfomation: refetcClientInfomation,
+                })
+              }
             />
           </View>
         </View>

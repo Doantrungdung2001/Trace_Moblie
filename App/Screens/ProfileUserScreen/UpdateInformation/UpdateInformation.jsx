@@ -23,10 +23,12 @@ import { Foundation } from "@expo/vector-icons";
 import CLIENT from "../../../Services/ClientService";
 const UpdateInformation = () => {
   const navigation = useNavigation();
+  const param = useRoute().params;
   // State cho từng trường input
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [name, setName] = useState(param.dataClient.name);
+  const [phone, setPhone] = useState(param.dataClient.phone);
+  const [address, setAddress] = useState(param.dataClient.address);
+  const refetcClientInfomation = param.refetcClientInfomation;
 
   const [dobLabel, setDobLabel] = useState("Ngày tháng sinh");
 
@@ -62,6 +64,7 @@ const UpdateInformation = () => {
         address: address,
       });
       console.log("Du lieu tra ve ----------------: ", res);
+      refetcClientInfomation();
       if (res.data.status === 200 || res.data.status === 201) {
         setTypeToast("success");
         setTextToast("Thành công");
@@ -85,7 +88,7 @@ const UpdateInformation = () => {
       setTimeout(() => {
         navigation.navigate("profile/info-view");
         setIsToastVisible(false); // Ẩn toast
-      }, 3000); // Đợi 3 giây trước khi thực hiện navigation
+      }, 3000);
     }
   }, [isToastVisible]);
 
