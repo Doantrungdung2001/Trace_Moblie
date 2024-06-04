@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 const featureData = [
   {
     id: 1,
-    icon: icons.send,
+    icon: icons.farm,
     color: COLORS.yellow,
     backgroundColor: COLORS.lightyellow,
     description: "Nông trại",
@@ -24,20 +24,12 @@ const featureData = [
     icon: icons.internet,
     color: COLORS.primary,
     backgroundColor: COLORS.lightGreen,
-    description: "Xã hội",
+    description: "Website",
     param: "Internet",
   },
   {
     id: 3,
-    icon: icons.wallet,
-    color: COLORS.red,
-    backgroundColor: COLORS.lightRed,
-    description: "Ưu đãi",
-    param: "points",
-  },
-  {
-    id: 4,
-    icon: icons.bill,
+    icon: icons.clock,
     color: COLORS.yellow,
     backgroundColor: COLORS.lightyellow,
     description: "Lịch sử",
@@ -62,7 +54,7 @@ const ListService = () => {
     <TouchableOpacity
       style={{
         marginBottom: SIZES.padding * 1,
-        width: 70,
+        width: 100,
         alignItems: "center",
       }}
       key={index}

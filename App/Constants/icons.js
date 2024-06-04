@@ -10,6 +10,8 @@ const barcode = require("../../assets/icons/barcode.png");
 const info = require("../../assets/icons/info.png");
 const internet = require("../../assets/icons/internet.png");
 const more = require("../../assets/icons/more.png");
+const farm = require("../../assets/icons/farm.png");
+const clock = require("../../assets/icons/clock.png");
 const phone = require("../../assets/icons/phone.png");
 const reload = require("../../assets/icons/reload.png");
 const scan = require("../../assets/icons/scan.png");
@@ -28,6 +30,8 @@ import chevronLeft from "../../assets/icons/chevron-left.png";
 import chevronRight from "../../assets/icons/chevron-right.png";
 
 export default {
+  clock,
+  farm,
   back,
   bell,
   bill,
