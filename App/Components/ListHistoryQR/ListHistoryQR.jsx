@@ -95,7 +95,7 @@ const ListHistoryQR = () => {
     );
   };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View>
         <Heading text={"QR quét gần đây"} />
         <TouchableOpacity
@@ -128,7 +128,7 @@ const ListHistoryQR = () => {
                 </View>
                 <View style={styles.cardInfoContainer}>
                   <View style={styles.cardInfoItem}>
-                    <Text style={styles.cardInfoLabel}> Tên dựa án</Text>
+                    <Text style={styles.cardInfoLabel}>Tên cây</Text>
                     <Text style={styles.cardInfoValue}>{item.plant}</Text>
                   </View>
                   <View style={styles.cardInfoItem}>
@@ -150,7 +150,7 @@ const ListHistoryQR = () => {
       {isLoadingHistoryQRScan && (
         <ActivityIndicator size="large" color="#00ff00" />
       )}
-    </View>
+    </ScrollView>
   );
 };
 

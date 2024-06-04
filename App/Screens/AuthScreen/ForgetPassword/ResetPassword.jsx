@@ -116,7 +116,7 @@ const ResetPassword = () => {
               value={password}
               onChangeText={handlePasswordChange}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{ justifyContent: "center" }}
               onPress={() => setSelectDisplayPassowrd(!selectDisplayPassword)}
             >
@@ -135,7 +135,7 @@ const ResetPassword = () => {
                   style={styles.dispalyPassword}
                 />
               )}
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.password}>
             <TextInput
@@ -146,7 +146,7 @@ const ResetPassword = () => {
               value={confirmPassword}
               onChangeText={handleConfirmPasswordChange}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{ justifyContent: "center" }}
               onPress={() =>
                 setSelectConfirmDisplayPassowrd(!selectConfirmDisplayPassword)
@@ -167,7 +167,7 @@ const ResetPassword = () => {
                   style={styles.dispalyPassword}
                 />
               )}
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           {!passwordsMatch && (
             <Text style={styles.errorText}>Mật khẩu không khớp</Text>

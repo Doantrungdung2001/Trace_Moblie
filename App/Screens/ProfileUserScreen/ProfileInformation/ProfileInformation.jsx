@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import styles from "./ProfileInformation.Styles";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../../Components/CustomButton/CustomButton";
 import UserInfoAsyncStorage from "../../../Utils/UserInfoAsyncStorage";
@@ -15,6 +15,7 @@ import useClientInformation from "./useClientInformation";
 const ProfileInformation = () => {
   const [userId, setUserId] = useState(null);
   const navigation = useNavigation();
+
   useEffect(() => {
     const fetchData = async () => {
       try {

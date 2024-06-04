@@ -130,7 +130,7 @@ const Register = () => {
               value={password}
               onChangeText={handlePasswordChange}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{ justifyContent: "center" }}
               onPress={() => setSelectDisplayPassowrd(!selectDisplayPassword)}
             >
@@ -149,7 +149,7 @@ const Register = () => {
                   style={styles.dispalyPassword}
                 />
               )}
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.password}>
             <TextInput
@@ -160,7 +160,7 @@ const Register = () => {
               value={confirmPassword}
               onChangeText={handleConfirmPasswordChange}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{ justifyContent: "center" }}
               onPress={() =>
                 setSelectConfirmDisplayPassowrd(!selectConfirmDisplayPassword)
@@ -181,7 +181,7 @@ const Register = () => {
                   style={styles.dispalyPassword}
                 />
               )}
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           {!passwordsMatch && (
             <Text style={styles.errorText}>Mật khẩu không khớp</Text>

@@ -1,4 +1,4 @@
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import React from "react";
 import ListService from "../../Components/ListSerivce/ListService";
 import HeaderComponents from "../../Components/HeaderComponents/HeaderComponents";

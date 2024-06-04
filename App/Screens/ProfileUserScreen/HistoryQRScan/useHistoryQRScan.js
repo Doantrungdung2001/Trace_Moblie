@@ -26,6 +26,7 @@ export default function useHistoryQRScan({ clientId }) {
     data: dataHistoryQRScan,
     isSuccess: isSuccessHistoryQRScan,
     isLoading: isLoadingHistoryQRScan,
+    refetch
   } = useQuery({
     queryKey: ["getHistoryQRScan"],
     queryFn: () => QR.historyScanQR(clientId),
@@ -38,5 +39,6 @@ export default function useHistoryQRScan({ clientId }) {
     dataHistoryQRScan: dataHistoryQRScan?.historyQRScan,
     isSuccessHistoryQRScan,
     isLoadingHistoryQRScan,
+    refetch
   };
 }

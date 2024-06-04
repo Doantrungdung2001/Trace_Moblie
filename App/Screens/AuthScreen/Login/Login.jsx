@@ -54,13 +54,16 @@ const Login = () => {
             <TextInput
               placeholder="Mật khẩu"
               placeholderTextColor={COLORS.darkgray}
-              secureTextEntry={!selectDisplayPassword}
+              secureTextEntry={true}
               style={styles.textInputPassword}
               onChangeText={(password) => setPassword(password)}
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{ justifyContent: "center" }}
-              onPress={() => setSelectDisplayPassowrd(!selectDisplayPassword)}
+              onPress={() => {
+                console.log("aaaaa");
+                setSelectDisplayPassowrd(!selectDisplayPassword);
+              }}
             >
               {selectDisplayPassword ? (
                 <Entypo
@@ -77,7 +80,7 @@ const Login = () => {
                   style={styles.displayPassword}
                 />
               )}
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           {LoginStatus === "false" && (
             <Text style={styles.alertLogin}>

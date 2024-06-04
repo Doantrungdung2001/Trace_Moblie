@@ -61,8 +61,8 @@ const ListService = () => {
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
       style={{
-        marginBottom: SIZES.padding * 2,
-        width: 60,
+        marginBottom: SIZES.padding * 1,
+        width: 70,
         alignItems: "center",
       }}
       key={index}

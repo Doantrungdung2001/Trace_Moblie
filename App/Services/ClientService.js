@@ -14,10 +14,11 @@ const CLIENT = {
         return err;
       });
   },
-  updateInfo: async () => {
+  updateInfo: async (data) => {
     return await privateHttp({
       method: "PATCH",
       url: `/client`,
+      data
     })
       .then((res) => {
         return res;

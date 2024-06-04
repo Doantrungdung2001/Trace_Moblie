@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import PageHeading from "../../../Components/PageHeading/PageHeading";
 import styles from "./UpdateInformation.Styles";
@@ -21,10 +21,8 @@ import { Fontisto } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
 
 import CLIENT from "../../../Services/ClientService";
-
 const UpdateInformation = () => {
   const navigation = useNavigation();
-
   // State cho từng trường input
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -36,6 +34,8 @@ const UpdateInformation = () => {
   const [showPicker, setShowPicker] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
 
+  const [isToastVisible, setIsToastVisible] = useState(false);
+
   const toastRef = useRef(null);
   const [typeToast, setTypeToast] = useState("success");
   const [textToast, setTextToast] = useState();
@@ -45,6 +45,7 @@ const UpdateInformation = () => {
   const handleShowToast = () => {
     if (toastRef.current) {
       toastRef.current.show();
+      setIsToastVisible(true);
     }
   };
 
@@ -60,7 +61,7 @@ const UpdateInformation = () => {
         phone: phone,
         address: address,
       });
-      console.log("Du lieu tra ve : ", res);
+      console.log("Du lieu tra ve ----------------: ", res);
       if (res.data.status === 200 || res.data.status === 201) {
         setTypeToast("success");
         setTextToast("Thành công");
@@ -78,6 +79,15 @@ const UpdateInformation = () => {
       console.log("fail: --", error);
     }
   };
+
+  useEffect(() => {
+    if (isToastVisible) {
+      setTimeout(() => {
+        navigation.navigate("profile/info-view");
+        setIsToastVisible(false); // Ẩn toast
+      }, 3000); // Đợi 3 giây trước khi thực hiện navigation
+    }
+  }, [isToastVisible]);
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>

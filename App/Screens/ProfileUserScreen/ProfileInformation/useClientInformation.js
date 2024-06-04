@@ -23,6 +23,7 @@ export default function useClientInformation({ clientId }) {
     data: dataClientInformation,
     isSuccess: isSuccessClientInformation,
     isLoading: isLoadingClientInformation,
+    refetch: refetcClientInfomation
   } = useQuery({
     queryKey: ["getClientInformation"],
     queryFn: () => CLIENT.getClientById(clientId),
@@ -35,5 +36,6 @@ export default function useClientInformation({ clientId }) {
     dataClient: dataClientInformation?.dataClient,
     isSuccessClientInformation,
     isLoadingClientInformation,
+    refetcClientInfomation
   };
 }
