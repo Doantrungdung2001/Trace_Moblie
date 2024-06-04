@@ -13,8 +13,12 @@ import PageHeading from "../../../Components/PageHeading/PageHeading";
 import { formatDateTime } from "../../../Utils/helper";
 import * as Linking from "expo-linking";
 
+const ITEMS_PER_PAGE = 3;
+
 const HistoryQRScan = () => {
   const [userId, setUserId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,26 +30,26 @@ const HistoryQRScan = () => {
     };
     fetchData();
   }, []);
+
   const { dataHistoryQRScan, isSuccessHistoryQRScan, isLoadingHistoryQRScan } =
     useHistoryQRScan({
       clientId: userId,
     });
 
-  // Function to handle when the TX code is pressed
   const handleTXPress = (txHash) => {
     const link = `https://traceabilityuser.onrender.com/search/transaction-hash/${txHash}`;
     Linking.openURL(link);
   };
+
   const handleProjectIdPress = (prjectId) => {
     const link = `https://traceabilityuser.onrender.com/results/${prjectId}`;
     Linking.openURL(link);
   };
 
-  // Function to render the truncated project ID
   const renderTruncatedProjectId = (projectId) => {
     if (!projectId) return null;
-    const beginning = projectId.substring(0, 5); // Display the first 5 characters
-    const end = projectId.substring(projectId.length - 5); // Display the last 5 characters
+    const beginning = projectId.substring(0, 5);
+    const end = projectId.substring(projectId.length - 5);
     return (
       <TouchableOpacity onPress={() => handleProjectIdPress(projectId)}>
         <Text style={styles.txHash}>
@@ -55,11 +59,10 @@ const HistoryQRScan = () => {
     );
   };
 
-  // Function to render the truncated TX code with the TouchableOpacity
   const renderTruncatedTX = (tx) => {
     if (!tx) return null;
-    const beginning = tx.substring(0, 5); // Display the first 5 characters
-    const end = tx.substring(tx.length - 5); // Display the last 5 characters
+    const beginning = tx.substring(0, 5);
+    const end = tx.substring(tx.length - 5);
     return (
       <TouchableOpacity onPress={() => handleTXPress(tx)}>
         <Text style={styles.txHash}>
@@ -69,52 +72,70 @@ const HistoryQRScan = () => {
     );
   };
 
+  const renderHistoryItems = () => {
+    if (!isSuccessHistoryQRScan) return null;
+    if (!dataHistoryQRScan) return <Text>Chưa quét lần nào</Text>;
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const paginatedData = dataHistoryQRScan.slice(startIndex, endIndex);
+
+    return paginatedData.map((history, index) => (
+      <View style={styles.card} key={index}>
+        <View style={styles.item}>
+          <View style={styles.itemContent}>
+            <Text style={styles.itemPrice}>{formatDateTime(history.time)}</Text>
+            <Text style={styles.itemName}>{history.plant}</Text>
+
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text style={{ marginRight: 4, fontSize: 18 }}>Mã dự án:</Text>
+              {renderTruncatedProjectId(history.projectId)}
+            </View>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text style={{ marginRight: 4, fontSize: 18 }}>Mã tx:</Text>
+              {renderTruncatedTX(history.tx)}
+            </View>
+          </View>
+        </View>
+      </View>
+    ));
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const renderPageButton = (pageNumber) => (
+    <TouchableOpacity
+      key={pageNumber}
+      onPress={() => handlePageChange(pageNumber)}
+      style={[
+        styles.pageButton,
+        currentPage === pageNumber && styles.activePage,
+      ]}
+    >
+      <Text>{pageNumber}</Text>
+    </TouchableOpacity>
+  );
+
+  const renderPageButtons = () => {
+    const numPages = Math.ceil(dataHistoryQRScan.length / ITEMS_PER_PAGE);
+    const pages = [];
+    for (let i = 1; i <= numPages; i++) {
+      pages.push(renderPageButton(i));
+    }
+    return pages;
+  };
+
   return (
     <ScrollView>
       <PageHeading title={"Lịch sử mua hàng"} />
       <View style={{ marginBottom: 20 }}></View>
-      {isSuccessHistoryQRScan && (
-        <View>
-          {dataHistoryQRScan ? (
-            dataHistoryQRScan?.map((history, index) => (
-              <View style={styles.card} key={index}>
-                <View style={styles.item}>
-                  <View style={styles.itemContent}>
-                    <Text style={styles.itemPrice}>
-                      {formatDateTime(history.time)}
-                    </Text>
-                    <Text style={styles.itemName}>{history.plant}</Text>
-
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
-                      <Text style={{ marginRight: 4, fontSize: 18 }}>
-                        Mã dự án:
-                      </Text>
-                      {renderTruncatedProjectId(history.projectId)}
-                    </View>
-                    <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                    >
-                      <Text style={{ marginRight: 4, fontSize: 18 }}>
-                        Mã tx:
-                      </Text>
-                      {renderTruncatedTX(history.tx)}
-                    </View>
-                  </View>
-                </View>
-              </View>
-            ))
-          ) : (
-            <View>
-              <Text>Chưa quét lần nào</Text>
-            </View>
-          )}
-        </View>
-      )}
+      {renderHistoryItems()}
       {isLoadingHistoryQRScan && (
         <ActivityIndicator size="large" color="#00ff00" />
       )}
+      <View style={styles.pagination}>{renderPageButtons()}</View>
     </ScrollView>
   );
 };

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../../../Constants";
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
@@ -81,6 +82,23 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  pagination: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  pageButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginHorizontal: 3,
+    borderColor: COLORS.green,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  activePage: {
+    backgroundColor: COLORS.green, // Màu nền của nút phân trang được chọn
   },
 });
 export default styles;
