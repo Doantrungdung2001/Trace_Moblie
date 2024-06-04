@@ -10,12 +10,32 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import QR from "../../../Services/QRScanService";
 import styles from "./Scan.Styles";
+import UserInfoAsyncStorage from "../../../Utils/UserInfoAsyncStorage";
+import useHistoryQRScan from "../../ProfileUserScreen/HistoryQRScan/useHistoryQRScan";
 const Scan = () => {
   const navigation = useNavigation();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [scannedData, setScannedData] = useState("");
   const [loading, setLoading] = useState(false); // Thêm state để quản lý spinner
+
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await UserInfoAsyncStorage.getUserInfo("UserInfo");
+        setUserId(result.farm._id);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const { refetcListQRInfomation } = useHistoryQRScan({
+    clientId: userId,
+  });
 
   useEffect(() => {
     (async () => {
@@ -88,6 +108,7 @@ const Scan = () => {
             purchaseInfo: result.data.metadata.purchaseInfo,
           };
         }
+        refetcListQRInfomation();
         console.log("In thu ra de xem ,", dataResult);
         navigation.push("result-scan", {
           result: dataResult,
