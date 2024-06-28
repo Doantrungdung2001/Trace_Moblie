@@ -42,7 +42,7 @@ const ListService = () => {
 
   const handlePress = (item) => {
     if (item.param === "Internet") {
-      Linking.openURL("https://traceabilityuser.onrender.com/");
+      Linking.openURL("https://trace-fe.onrender.com/");
     } else {
       navigation.push(`service/${item.param}`, {
         category: item.description,

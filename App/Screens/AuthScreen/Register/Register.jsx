@@ -4,13 +4,14 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState, useRef } from "react";
 import { COLORS } from "../../../Constants";
 import { useNavigation } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
-import AUTH from "../../../Services/AuthService";
 import styles from "./Register.Style";
+import AUTH from "../../../Services/AuthService";
 import ToastMessage from "../../../Components/ToastMessage/ToastMessage";
 
 const Register = () => {
@@ -24,27 +25,31 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-
+  const [confirmPasswordClicked, setConfirmPasswordClicked] = useState(false);
+  const [allFieldsFilled, setAllFieldsFilled] = useState(true);
 
   const toastRef = useRef(null);
   const [typeToast, setTypeToast] = useState("success");
   const [textToast, setTextToast] = useState();
-
   const [descriptionToast, setDescriptionToast] = useState();
+
+  const [loading, setLoading] = useState(false); // Thêm state cho loading
 
   const handleShowToast = () => {
     if (toastRef.current) {
       toastRef.current.show();
     }
   };
+
   const isValidEmail = (email) => {
-    // Biểu thức chính quy để kiểm tra định dạng email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+
   const handleNameChange = (text) => {
     setName(text);
   };
+
   const handleEmailChange = (text) => {
     setEmail(text);
     setEmailValid(isValidEmail(text));
@@ -52,6 +57,7 @@ const Register = () => {
 
   const handlePasswordChange = (text) => {
     setPassword(text);
+    setPasswordsMatch(text === confirmPassword);
   };
 
   const handleConfirmPasswordChange = (text) => {
@@ -59,7 +65,12 @@ const Register = () => {
     setPasswordsMatch(text === password);
   };
 
+  const handleConfirmPasswordFocus = () => {
+    setConfirmPasswordClicked(true);
+  };
+
   const Register = async (name, email, password) => {
+    setLoading(true); // Bắt đầu hiển thị loading
     try {
       const res = await AUTH.register({
         name: name,
@@ -68,13 +79,15 @@ const Register = () => {
       });
       if (res.data.status === 200 || res.data.status === 201) {
         setTypeToast("success");
-        setTextToast("Thành công");
+        setTextToast("Đăng ký thành công");
         setDescriptionToast(
-          "Đăng ký tài khoản thành công, hãy đăng nhập để trải nghiệm dịch vụ"
+          "Bạn sẽ được chuyển đến trang đăng nhập trong giây lát"
         );
         handleShowToast();
+        setTimeout(() => {
+          navigation.push("Login");
+        }, 3000);
       }
-
       console.log("Register success");
     } catch (error) {
       if (error?.response?.data.code) {
@@ -84,8 +97,24 @@ const Register = () => {
         handleShowToast();
       }
       console.log("Register fail: --", error);
+    } finally {
+      setLoading(false); // Tắt loading sau khi hoàn tất xử lý
     }
   };
+
+  const handleRegisterPress = () => {
+    if (!name || !email || !password || !confirmPassword) {
+      setAllFieldsFilled(false);
+      return;
+    }
+
+    if (emailValid && passwordsMatch) {
+      Register(name, email, password);
+    } else {
+      alert("Vui lòng nhập email hợp lệ và mật khẩu khớp");
+    }
+  };
+
   return (
     <SafeAreaView>
       <ToastMessage
@@ -130,26 +159,10 @@ const Register = () => {
               value={password}
               onChangeText={handlePasswordChange}
             />
-            {/* <TouchableOpacity
+            <TouchableOpacity
               style={{ justifyContent: "center" }}
               onPress={() => setSelectDisplayPassowrd(!selectDisplayPassword)}
-            >
-              {selectDisplayPassword ? (
-                <Entypo
-                  name="eye-with-line"
-                  size={24}
-                  color="black"
-                  style={styles.dispalyPassword}
-                />
-              ) : (
-                <Entypo
-                  name="eye"
-                  size={24}
-                  color="black"
-                  style={styles.dispalyPassword}
-                />
-              )}
-            </TouchableOpacity> */}
+            ></TouchableOpacity>
           </View>
           <View style={styles.password}>
             <TextInput
@@ -159,45 +172,29 @@ const Register = () => {
               style={styles.textInputPassword}
               value={confirmPassword}
               onChangeText={handleConfirmPasswordChange}
+              onFocus={handleConfirmPasswordFocus}
             />
-            {/* <TouchableOpacity
+            <TouchableOpacity
               style={{ justifyContent: "center" }}
               onPress={() =>
                 setSelectConfirmDisplayPassowrd(!selectConfirmDisplayPassword)
               }
-            >
-              {selectConfirmDisplayPassword ? (
-                <Entypo
-                  name="eye-with-line"
-                  size={24}
-                  color="black"
-                  style={styles.dispalyPassword}
-                />
-              ) : (
-                <Entypo
-                  name="eye"
-                  size={24}
-                  color="black"
-                  style={styles.dispalyPassword}
-                />
-              )}
-            </TouchableOpacity> */}
+            ></TouchableOpacity>
           </View>
-          {!passwordsMatch && (
+          {!passwordsMatch && confirmPasswordClicked && (
             <Text style={styles.errorText}>Mật khẩu không khớp</Text>
           )}
         </View>
         <TouchableOpacity
           style={styles.btnRegister}
-          onPress={() => {
-            if (emailValid && passwordsMatch) {
-              Register(name, email, password);
-            } else {
-              alert("Vui lòng nhập email hợp lệ và mật khẩu khớp");
-            }
-          }}
+          onPress={handleRegisterPress}
+          disabled={loading} // Vô hiệu hóa nút khi đang loading
         >
-          <Text style={styles.textBtnRegister}>Đăng ký</Text>
+          {loading ? (
+            <ActivityIndicator size="small" color="#FFFFFF" />
+          ) : (
+            <Text style={styles.textBtnRegister}>Đăng ký</Text>
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnLogin}

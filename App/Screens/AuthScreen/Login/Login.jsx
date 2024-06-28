@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { COLORS } from "../../../Constants";
@@ -19,24 +20,32 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [selectDisplayPassword, setSelectDisplayPassowrd] = useState();
   const [LoginStatus, setLoginStatus] = useState("");
+  const [loading, setLoading] = useState(false); // Thêm state cho loading
+
   const handleLogin = async (email, password) => {
+    setLoading(true); // Bắt đầu hiển thị loading
     try {
       const res = await AUTH.login({
         email: email,
         password: password,
       });
       if (res.data.status === 200) {
-        setLoginStatus("succes");
+        setLoginStatus("success");
         UserInfoAsyncStorage.storeUser("UserInfo", res.data.metadata.metadata);
+        console.log("Login success");
+        navigation.push("Home");
+      } else {
+        setLoginStatus("false");
       }
-      console.log("Login success");
-      navigation.push("Home");
     } catch (error) {
       if (error?.response?.data.code) {
         setLoginStatus("false");
       }
+    } finally {
+      setLoading(false); // Tắt loading sau khi hoàn tất xử lý
     }
   };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -58,29 +67,6 @@ const Login = () => {
               style={styles.textInputPassword}
               onChangeText={(password) => setPassword(password)}
             />
-            {/* <TouchableOpacity
-              style={{ justifyContent: "center" }}
-              onPress={() => {
-                console.log("aaaaa");
-                setSelectDisplayPassowrd(!selectDisplayPassword);
-              }}
-            >
-              {selectDisplayPassword ? (
-                <Entypo
-                  name="eye-with-line"
-                  size={24}
-                  color="black"
-                  style={styles.displayPassword}
-                />
-              ) : (
-                <Entypo
-                  name="eye"
-                  size={24}
-                  color="black"
-                  style={styles.displayPassword}
-                />
-              )}
-            </TouchableOpacity> */}
           </View>
           {LoginStatus === "false" && (
             <Text style={styles.alertLogin}>
@@ -94,8 +80,13 @@ const Login = () => {
         <TouchableOpacity
           style={styles.btnLogin}
           onPress={() => handleLogin(email, password)}
+          disabled={loading} // Vô hiệu hóa nút khi đang loading
         >
-          <Text style={styles.textBtnLogin}>Đăng nhập</Text>
+          {loading ? (
+            <ActivityIndicator size="small" color="#FFFFFF" />
+          ) : (
+            <Text style={styles.textBtnLogin}>Đăng nhập</Text>
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnRegister}
@@ -107,4 +98,5 @@ const Login = () => {
     </SafeAreaView>
   );
 };
+
 export default Login;

@@ -12,7 +12,7 @@ import useHistoryQRScan from "./useHistoryQRScan";
 import PageHeading from "../../../Components/PageHeading/PageHeading";
 import { formatDateTime } from "../../../Utils/helper";
 import * as Linking from "expo-linking";
-
+import NotData from "../../../Components/NotData/NotData";
 const ITEMS_PER_PAGE = 3;
 
 const HistoryQRScan = () => {
@@ -41,8 +41,8 @@ const HistoryQRScan = () => {
     Linking.openURL(link);
   };
 
-  const handleProjectIdPress = (prjectId) => {
-    const link = `https://traceabilityuser.onrender.com/results/${prjectId}`;
+  const handleProjectIdPress = (projectId) => {
+    const link = `https://traceabilityuser.onrender.com/results/${projectId}`;
     Linking.openURL(link);
   };
 
@@ -73,9 +73,6 @@ const HistoryQRScan = () => {
   };
 
   const renderHistoryItems = () => {
-    if (!isSuccessHistoryQRScan) return null;
-    if (!dataHistoryQRScan) return <Text>Chưa quét lần nào</Text>;
-
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const paginatedData = dataHistoryQRScan.slice(startIndex, endIndex);
@@ -131,11 +128,16 @@ const HistoryQRScan = () => {
     <ScrollView>
       <PageHeading title={"Lịch sử mua hàng"} />
       <View style={{ marginBottom: 20 }}></View>
-      {renderHistoryItems()}
-      {isLoadingHistoryQRScan && (
+      {isLoadingHistoryQRScan ? (
         <ActivityIndicator size="large" color="#00ff00" />
+      ) : dataHistoryQRScan && dataHistoryQRScan.length > 0 ? (
+        <>
+          {renderHistoryItems()}
+          <View style={styles.pagination}>{renderPageButtons()}</View>
+        </>
+      ) : (
+        <NotData text={"Bạn chưa mua hàng"}/>
       )}
-      <View style={styles.pagination}>{renderPageButtons()}</View>
     </ScrollView>
   );
 };
