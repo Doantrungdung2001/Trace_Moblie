@@ -56,14 +56,14 @@ const ResultScan = () => {
 
   // Function to handle when the TX code is pressed
   const handleTXPress = () => {
-    const link = `https://traceabilityuser.onrender.com/search/transaction-hash/${resultScan.txScan}`;
+    const link = `https://trace-fe.onrender.com/search/transaction-hash/${resultScan.txScan}`;
     // Open the link in the browser
     Linking.openURL(link);
   };
 
   // Function to handle when the TX code is pressed
   const handleProjectIdPress = (id) => {
-    const link = `https://traceabilityuser.onrender.com/results/${id}`;
+    const link = `https://trace-fe.onrender.com/results/${id}`;
     // Open the link in the browser
     Linking.openURL(link);
   };

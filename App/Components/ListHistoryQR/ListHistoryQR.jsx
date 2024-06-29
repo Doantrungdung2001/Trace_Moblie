@@ -59,11 +59,11 @@ const ListHistoryQR = () => {
 
   // Function to handle when the TX code is pressed
   const handleTXPress = (txHash) => {
-    const link = `https://traceabilityuser.onrender.com/search/transaction-hash/${txHash}`;
+    const link = `https://trace-fe.onrender.com/search/transaction-hash/${txHash}`;
     Linking.openURL(link);
   };
   const handleProjectIdPress = (prjectId) => {
-    const link = `https://traceabilityuser.onrender.com/results/${prjectId}`;
+    const link = `https://trace-fe.onrender.com/results/${prjectId}`;
     Linking.openURL(link);
   };
 

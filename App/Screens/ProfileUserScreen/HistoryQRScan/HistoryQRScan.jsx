@@ -37,12 +37,12 @@ const HistoryQRScan = () => {
     });
 
   const handleTXPress = (txHash) => {
-    const link = `https://traceabilityuser.onrender.com/search/transaction-hash/${txHash}`;
+    const link = `https://trace-fe.onrender.com/search/transaction-hash/${txHash}`;
     Linking.openURL(link);
   };
 
   const handleProjectIdPress = (projectId) => {
-    const link = `https://traceabilityuser.onrender.com/results/${projectId}`;
+    const link = `https://trace-fe.onrender.com/results/${projectId}`;
     Linking.openURL(link);
   };
 

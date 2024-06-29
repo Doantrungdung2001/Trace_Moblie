@@ -22,7 +22,7 @@ const DetailFarm = () => {
   const navigation = useNavigation(); 
 
   const handleLinkPress = () => {
-    Linking.openURL(`https://traceabilityuser.onrender.com/farm/detail/${farmInformation.id}`);
+    Linking.openURL(`https://trace-fe.onrender.com/farm/detail/${farmInformation.id}`);
   };
   return (
     <View>
